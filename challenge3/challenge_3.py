@@ -1,6 +1,6 @@
 """ 
 This file creates an object manager like Django manager
-to create custom filter queries with the Python class.
+to create custom filter queries with Python
 """
 
 from collections.abc import MutableSet
@@ -9,7 +9,7 @@ import inspect
 
 
 class ObjectManager(MutableSet):
-    """This class creates a object manager."""
+    """This class creates a object manager like in Django."""
     def __init__(self):
         self._object_attributes = None
         self._theset = set()
@@ -51,7 +51,7 @@ class ObjectManager(MutableSet):
                 op = 'eq'
                 _kw = kw
             _oper = getattr(operator, op)
-            # valid object attributes
+            # Allow access to valid object attributes
             assert _kw in self._object_attributes
             n_objects = (
                 obj for obj in self if _oper(getattr(obj, _kw), kwargs[kw])
@@ -69,7 +69,6 @@ class ObjectManager(MutableSet):
 
 
 class MyTable:
-    """This class represents the our table."""
     # initiate the object manager
     objects = ObjectManager()
 
@@ -79,20 +78,18 @@ class MyTable:
         self.date = date
         self.rating = rating
 
-        # populate the list of query-able attributes on creation
-        # of the first instance
         if not len(self.objects):
             self.objects.set_attributes(self)
-        # create any new instance to the object manager
+        # add the new instance to the object manager
         self.objects.add(self)
 
 
-table_data = [
-    {'id': 1, 'url': 'somwulr.com', 'date': '19-06-2020', 'rating': 9.5},
-    {'id': 2, 'url': 'somwulr2.com', 'date': '15-02-2019', 'rating': 8.4},
-]
-for data in table_data:
-    MyTable(**data)
+# table_data = [
+#     {'id': 1, 'url': 'somwulr.com', 'date': '19-06-2020', 'rating': 9.5},
+#     {'id': 2, 'url': 'somwulr2.com', 'date': '15-02-2019', 'rating': 8.4},
+# ]
+# for data in table_data:
+#     MyTable(**data)
 
-print([md.id for md in MyTable.objects.filter(id__ge=1)])
-print([md.id for md in MyTable.objects.filter(mode='and', id__ge=1, rating__ge=5.5, date__eq='19-06-2020')])
+# print([md.id for md in MyTable.objects.filter(id__ge=1)])
+# print([md.id for md in MyTable.objects.filter(mode='and', id__ge=1, rating__ge=5.5, date__eq='19-06-2020')])
