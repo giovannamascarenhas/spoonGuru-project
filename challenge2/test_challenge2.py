@@ -1,3 +1,4 @@
+# Internal packages
 from challenge_2 import calculate_largest_loss
 
 

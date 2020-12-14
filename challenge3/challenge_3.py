@@ -3,6 +3,7 @@ This file creates an object manager like Django manager
 to create custom filter queries with Python
 """
 
+# External packages
 from collections.abc import MutableSet
 import operator
 import inspect
@@ -82,14 +83,3 @@ class MyTable:
             self.objects.set_attributes(self)
         # add the new instance to the object manager
         self.objects.add(self)
-
-
-# table_data = [
-#     {'id': 1, 'url': 'somwulr.com', 'date': '19-06-2020', 'rating': 9.5},
-#     {'id': 2, 'url': 'somwulr2.com', 'date': '15-02-2019', 'rating': 8.4},
-# ]
-# for data in table_data:
-#     MyTable(**data)
-
-# print([md.id for md in MyTable.objects.filter(id__ge=1)])
-# print([md.id for md in MyTable.objects.filter(mode='and', id__ge=1, rating__ge=5.5, date__eq='19-06-2020')])
