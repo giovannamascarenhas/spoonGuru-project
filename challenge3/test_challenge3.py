@@ -15,12 +15,17 @@ class TestMyTableClass(unittest.TestCase):
             MyTable(**data)
 
     def test_filtering_id_is_iqual_1(self):
-        search1 = [md.id for md in MyTable.objects.filter(id__eq=1)]
-        self.assertEqual(search1, [1])
+        search = [md.id for md in MyTable.objects.filter(id__eq=1)]
+        self.assertEqual(search, [1])
 
     def test_with_no_exist_data(self):
-        search1 = [md.id for md in MyTable.objects.filter(id__gt=5)]
-        self.assertEqual(search1, [])
+        search = [md.id for md in MyTable.objects.filter(id__gt=5)]
+        self.assertEqual(search, [])
+
+    def test_with_more_than_one_filter(self):
+        search = [md.date for md in MyTable.objects.filter(mode="and", id__gt=1, rating__gt=5.5)]
+        self.assertEqual(len(search), 2)
+        self.assertIn('15-02-2019', search)
 
 
 if __name__ == '__main__':
