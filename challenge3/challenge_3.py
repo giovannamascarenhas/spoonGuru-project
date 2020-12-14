@@ -13,23 +13,23 @@ class ObjectManager(MutableSet):
     """This class creates a object manager like in Django."""
     def __init__(self):
         self._object_attributes = None
-        self._theset = set()
+        self._data = set()
     
     def add(self, item):
-        self._theset.add(item)
+        self._data.add(item)
 
     def discard(self, item):
-        self._theset.discard(item)
+        self._data.discard(item)
     
     def __iter__(self):
-        return iter(self._theset)
+        return iter(self._data)
     
     def __len__(self):
-        return len(self._theset)
+        return len(self._data)
     
     def __contains__(self, item):
         try:
-            return item in self._theset
+            return item in self._data
         except AttributeError:
             return False
 
